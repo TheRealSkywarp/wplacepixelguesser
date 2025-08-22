@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 
-# Chaque pixel prend 30 secondes à se recharger
-DUREE_PAR_PIXEL = 30  # en secondes
+DUREE_PAR_PIXEL = 30 
 
 def calcul_temps(pixels_a_recharger):
     total_secondes = pixels_a_recharger * DUREE_PAR_PIXEL
@@ -30,11 +29,9 @@ def main():
 
         total_secondes, heures, minutes, secondes = calcul_temps(pixels_a_recharger)
 
-        # Heure actuelle + temps de recharge
         maintenant = datetime.now()
         heure_fin = maintenant + timedelta(seconds=total_secondes)
 
-        # Affichage toujours cohérent : heures, minutes et secondes affichées même si 0
         resultat = [
             f"{heures} heure{'s' if heures != 1 else ''}",
             f"{minutes} minute{'s' if minutes != 1 else ''}",
