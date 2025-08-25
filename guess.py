@@ -12,9 +12,9 @@ def requirements():
     try:
         import win10toast
     except ImportError:
-        print("⬇️ win10toast non trouvé, installation en cours...")
+        print("⬇️ win10toast not found, installing...")
         subprocess.run([sys.executable, "-m", "pip", "install", "--user", "win10toast"])
-        print("✅ win10toast installé !")
+        print("✅ win10toast installed!")
     global ToastNotifier
     from win10toast import ToastNotifier
 
@@ -27,20 +27,20 @@ def math(pixelreloadtime):
 
 def main():
     requirements()
-    currentpixels = int(input("🎯 Combien de pixels as-tu actuellement ? "))
-    maxpixels = int(input("📦 Quel est ton stock maximum de pixels ? "))
+    currentpixels = int(input("🎯 How many pixels do you currently have?"))
+    maxpixels = int(input("📦 What is your maximum pixel stock?"))
     pixelreloadtime = max(0, maxpixels - currentpixels)
     if pixelreloadtime == 0:
-        print("🎉 Ton stock est déjà plein !")
+        print("🎉 Your stock is already full!")
         return
     total_seconds, hours, minutes, seconds = math(pixelreloadtime)
     end = datetime.now() + timedelta(seconds=total_seconds)
-    print(f"📉 Pixels à recharger : {pixelreloadtime}")
-    print(f"⏳ Temps total : {hours}h {minutes}m {seconds}s")
-    print(f"🕒 Stock plein à : {end.strftime('%H:%M:%S')}")
-    consent = input("📢 Veux-tu que je programme une notification Windows en arrière-plan ? (o/n) : ").strip().lower()
+    print(f"📉 Pixels to reload: {pixelreloadtime}")
+    print(f"⏳ Total time: {hours}h {minutes}m {seconds}s")
+    print(f"🕒 Stock full at: {end.strftime('%H:%M:%S')}")
+    consent = input("📢 Do you want me to schedule a Windows notification in the background? (y/n):").strip().lower()
     if consent != "o":
-        print("❌ Aucun rappel créé.")
+        print("❌ No reminder created.")
         return
     script_path = os.path.join(os.environ['TEMP'], 'rappelwplace.py')
     with open(script_path, 'w', encoding='utf-8') as f:
@@ -49,10 +49,10 @@ def main():
             "from win10toast import ToastNotifier\n"
             f"time.sleep({total_seconds})\n"
             "toaster = ToastNotifier()\n"
-            "toaster.show_toast(\"Stock plein 🎉\", \"Ton stock de pixels est maintenant au maximum !\", duration=10)\n"
+            "toaster.show_toast(\"🎉 Stock full\", \"Your pixel stock has now fully refilled!\", duration=10)\n"
         )
     subprocess.Popen([sys.executable, script_path], creationflags=subprocess.CREATE_NO_WINDOW)
-    print(f"✅ Notification programmée en arrière-plan pour {end.strftime('%H:%M:%S')}.")
+    print(f"✅ Notification scheduled in the background for {end.strftime('%H:%M:%S')}.")
 
 if __name__ == "__main__":
     main()
