@@ -27,8 +27,8 @@ def math(pixelreloadtime):
 
 def main():
     requirements()
-    currentpixels = int(input("🎯 How many pixels do you currently have?"))
-    maxpixels = int(input("📦 What is your maximum pixel stock?"))
+    currentpixels = int(input("🎯 How many pixels do you currently have? "))
+    maxpixels = int(input("📦 What is your maximum pixel stock? "))
     pixelreloadtime = max(0, maxpixels - currentpixels)
     if pixelreloadtime == 0:
         print("🎉 Your stock is already full!")
@@ -38,11 +38,11 @@ def main():
     print(f"📉 Pixels to reload: {pixelreloadtime}")
     print(f"⏳ Total time: {hours}h {minutes}m {seconds}s")
     print(f"🕒 Stock full at: {end.strftime('%H:%M:%S')}")
-    consent = input("📢 Do you want me to schedule a Windows notification in the background? (y/n):").strip().lower()
+    consent = input("📢 Do you want me to schedule a Windows notification in the background? (y/n): ").strip().lower()
     if consent != "o":
         print("❌ No reminder created.")
         return
-    script_path = os.path.join(os.environ['TEMP'], 'rappelwplace.py')
+    script_path = os.path.join(os.environ['TEMP'], 'wplacereminder.py')
     with open(script_path, 'w', encoding='utf-8') as f:
         f.write(
             "import time\n"
