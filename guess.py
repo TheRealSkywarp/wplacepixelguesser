@@ -39,7 +39,7 @@ def main():
     print(f"⏳ Total time: {hours}h {minutes}m {seconds}s")
     print(f"🕒 Stock full at: {end.strftime('%H:%M:%S')}")
     consent = input("📢 Do you want me to schedule a Windows notification in the background? (y/n): ").strip().lower()
-    if consent != "o":
+    if consent != "y":
         print("❌ No reminder created.")
         return
     script_path = os.path.join(os.environ['TEMP'], 'wplacereminder.py')
